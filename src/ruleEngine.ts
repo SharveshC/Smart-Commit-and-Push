@@ -100,58 +100,138 @@ export function inferScope(files: string[]): string {
 }
 
 /**
- * Generate a conventional commit message
+ * Generate a conventional commit message from git information
  */
-export function generateCommitMessage(
-    type: CommitType,
-    scope: string,
-    files: string[]
-): string {
-    const description = generateDescription(type, files);
-    return `${type}(${scope}): ${description}`;
+export function generateCommitMessage(gitInfo: { changedFiles: string[]; diff: string }): string {
+    const { changedFiles, diff } = gitInfo;
+
+    const commitType = detectCommitType(changedFiles, diff);
+    const scope = inferScope(changedFiles);
+    const description = generateDescription(commitType, changedFiles, diff);
+
+    return `${commitType}(${scope}): ${description}`;
 }
 
 /**
- * Generate a short imperative description
+ * Generate a short imperative description with specific details
  */
-function generateDescription(type: CommitType, files: string[]): string {
+function generateDescription(type: CommitType, files: string[], diff: string): string {
     const fileCount = files.length;
 
+    // Single file - be very specific
     if (fileCount === 1) {
         const fileName = files[0].split(/[/\\]/).pop() || 'file';
         const baseName = fileName.replace(/\.[^.]+$/, '');
+        const cleanName = baseName.replace(/[-_]/g, ' ');
 
         switch (type) {
             case 'feat':
-                return `add ${baseName}`;
+                return `add ${cleanName}`;
             case 'fix':
-                return `fix issue in ${baseName}`;
+                return `resolve issue in ${cleanName}`;
             case 'docs':
-                return `update ${baseName}`;
+                return `update ${cleanName} documentation`;
             case 'test':
-                return `add tests for ${baseName}`;
+                return `add tests for ${cleanName}`;
             case 'refactor':
-                return `refactor ${baseName}`;
+                return `refactor ${cleanName}`;
             case 'chore':
-                return `update ${baseName}`;
+                return `update ${cleanName} configuration`;
         }
     }
 
-    // Multiple files
+    // Multiple files - try to find common pattern
+    const commonFolder = findCommonFolder(files);
+    const fileExtensions = getUniqueExtensions(files);
+
+    // If all files share a common folder, mention it
+    if (commonFolder && commonFolder !== '.') {
+        switch (type) {
+            case 'feat':
+                return `add ${commonFolder} functionality`;
+            case 'fix':
+                return `fix ${commonFolder} issues`;
+            case 'docs':
+                return `update ${commonFolder} documentation`;
+            case 'test':
+                return `add ${commonFolder} tests`;
+            case 'refactor':
+                return `refactor ${commonFolder} module`;
+            case 'chore':
+                return `update ${commonFolder} configuration`;
+        }
+    }
+
+    // If all files have same extension, mention it
+    if (fileExtensions.length === 1) {
+        const ext = fileExtensions[0];
+        const fileType = ext === 'ts' ? 'TypeScript' : ext === 'js' ? 'JavaScript' : ext;
+
+        switch (type) {
+            case 'feat':
+                return `add ${fileType} modules`;
+            case 'fix':
+                return `fix ${fileType} issues`;
+            case 'docs':
+                return `update ${fileType} documentation`;
+            case 'test':
+                return `add ${fileType} tests`;
+            case 'refactor':
+                return `refactor ${fileType} code`;
+            case 'chore':
+                return `update ${fileType} configuration`;
+        }
+    }
+
+    // Fallback to file count
     switch (type) {
         case 'feat':
-            return `add new features (${fileCount} files)`;
+            return `add new functionality (${fileCount} files)`;
         case 'fix':
-            return `fix issues (${fileCount} files)`;
+            return `resolve multiple issues (${fileCount} files)`;
         case 'docs':
             return `update documentation (${fileCount} files)`;
         case 'test':
-            return `add tests (${fileCount} files)`;
+            return `add test coverage (${fileCount} files)`;
         case 'refactor':
-            return `refactor code (${fileCount} files)`;
+            return `refactor codebase (${fileCount} files)`;
         case 'chore':
-            return `update configuration (${fileCount} files)`;
+            return `update project configuration (${fileCount} files)`;
     }
+}
+
+/**
+ * Find common folder among files
+ */
+function findCommonFolder(files: string[]): string | null {
+    if (files.length === 0) return null;
+
+    const folders = files.map(f => {
+        const parts = f.split(/[/\\]/);
+        return parts.length > 1 ? parts[0] : null;
+    }).filter(f => f !== null);
+
+    if (folders.length === 0) return null;
+
+    // Check if all files share the same folder
+    const firstFolder = folders[0];
+    if (folders.every(f => f === firstFolder)) {
+        return firstFolder;
+    }
+
+    return null;
+}
+
+/**
+ * Get unique file extensions
+ */
+function getUniqueExtensions(files: string[]): string[] {
+    const extensions = files.map(f => {
+        const match = f.match(/\.([^.]+)$/);
+        return match ? match[1] : null;
+    }).filter(ext => ext !== null) as string[];
+
+    return [...new Set(extensions)];
 }
 
 // Helper functions
