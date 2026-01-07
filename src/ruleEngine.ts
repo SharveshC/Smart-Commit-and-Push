@@ -114,6 +114,7 @@ export function generateCommitMessage(gitInfo: { changedFiles: string[]; diff: s
 
 /**
  * Generate a short imperative description with specific details
+ * Avoids generic words like "update", "modify", "change" alone
  */
 function generateDescription(type: CommitType, files: string[], diff: string): string {
     const fileCount = files.length;
@@ -130,13 +131,13 @@ function generateDescription(type: CommitType, files: string[], diff: string): s
             case 'fix':
                 return `resolve issue in ${cleanName}`;
             case 'docs':
-                return `update ${cleanName} documentation`;
+                return `improve ${cleanName} documentation`;
             case 'test':
                 return `add tests for ${cleanName}`;
             case 'refactor':
                 return `refactor ${cleanName}`;
             case 'chore':
-                return `update ${cleanName} configuration`;
+                return `configure ${cleanName}`;
         }
     }
 
@@ -146,58 +147,93 @@ function generateDescription(type: CommitType, files: string[], diff: string): s
 
     // If all files share a common folder, mention it
     if (commonFolder && commonFolder !== '.') {
+        const folderName = commonFolder.replace(/[-_]/g, ' ');
+
         switch (type) {
             case 'feat':
-                return `add ${commonFolder} functionality`;
+                return `implement ${folderName} features`;
             case 'fix':
-                return `fix ${commonFolder} issues`;
+                return `resolve ${folderName} issues`;
             case 'docs':
-                return `update ${commonFolder} documentation`;
+                return `improve ${folderName} documentation`;
             case 'test':
-                return `add ${commonFolder} tests`;
+                return `add ${folderName} test coverage`;
             case 'refactor':
-                return `refactor ${commonFolder} module`;
+                return `refactor ${folderName} module`;
             case 'chore':
-                return `update ${commonFolder} configuration`;
+                return `configure ${folderName} settings`;
         }
     }
 
     // If all files have same extension, mention it
     if (fileExtensions.length === 1) {
         const ext = fileExtensions[0];
-        const fileType = ext === 'ts' ? 'TypeScript' : ext === 'js' ? 'JavaScript' : ext;
+        const fileType = getFileTypeName(ext);
 
         switch (type) {
             case 'feat':
-                return `add ${fileType} modules`;
+                return `implement ${fileType} features`;
             case 'fix':
-                return `fix ${fileType} issues`;
+                return `resolve ${fileType} issues`;
             case 'docs':
-                return `update ${fileType} documentation`;
+                return `improve ${fileType} documentation`;
             case 'test':
-                return `add ${fileType} tests`;
+                return `add ${fileType} test coverage`;
             case 'refactor':
                 return `refactor ${fileType} code`;
             case 'chore':
-                return `update ${fileType} configuration`;
+                return `configure ${fileType} settings`;
         }
     }
 
-    // Fallback to file count
+    // Fallback - use file count with specific verbs
     switch (type) {
         case 'feat':
-            return `add new functionality (${fileCount} files)`;
+            return `implement features across ${fileCount} files`;
         case 'fix':
-            return `resolve multiple issues (${fileCount} files)`;
+            return `resolve issues across ${fileCount} files`;
         case 'docs':
-            return `update documentation (${fileCount} files)`;
+            return `improve documentation across ${fileCount} files`;
         case 'test':
-            return `add test coverage (${fileCount} files)`;
+            return `add test coverage for ${fileCount} files`;
         case 'refactor':
-            return `refactor codebase (${fileCount} files)`;
+            return `refactor ${fileCount} modules`;
         case 'chore':
-            return `update project configuration (${fileCount} files)`;
+            return `configure ${fileCount} project files`;
     }
+}
+
+/**
+ * Get human-readable file type name
+ */
+function getFileTypeName(ext: string): string {
+    const typeMap: Record<string, string> = {
+        'ts': 'TypeScript',
+        'js': 'JavaScript',
+        'tsx': 'React',
+        'jsx': 'React',
+        'py': 'Python',
+        'java': 'Java',
+        'go': 'Go',
+        'rs': 'Rust',
+        'cpp': 'C++',
+        'c': 'C',
+        'cs': 'C#',
+        'rb': 'Ruby',
+        'php': 'PHP',
+        'swift': 'Swift',
+        'kt': 'Kotlin',
+        'md': 'Markdown',
+        'json': 'JSON',
+        'yml': 'YAML',
+        'yaml': 'YAML',
+        'xml': 'XML',
+        'html': 'HTML',
+        'css': 'CSS',
+        'scss': 'SCSS',
+    };
+
+    return typeMap[ext] || ext;
 }
 
 /**
