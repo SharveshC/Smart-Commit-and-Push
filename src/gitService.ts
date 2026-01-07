@@ -20,10 +20,20 @@ export async function getGitInfo(workspaceRoot: string): Promise<GitInfo> {
             cwd: workspaceRoot,
         });
 
-        // Get full diff
-        const { stdout: diff } = await execAsync('git diff HEAD', {
-            cwd: workspaceRoot,
-        });
+        // Get full diff (both staged and unstaged changes)
+        let diff = '';
+        try {
+            const { stdout: unstagedDiff } = await execAsync('git diff', {
+                cwd: workspaceRoot,
+            });
+            const { stdout: stagedDiff } = await execAsync('git diff --cached', {
+                cwd: workspaceRoot,
+            });
+            diff = unstagedDiff + '\n' + stagedDiff;
+        } catch {
+            // If diff fails, continue with empty diff
+            diff = '';
+        }
 
         // Get diff statistics
         const { stdout: diffStat } = await execAsync('git diff --stat HEAD', {
