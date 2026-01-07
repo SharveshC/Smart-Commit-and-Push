@@ -33,30 +33,21 @@ export function activate(context: vscode.ExtensionContext) {
 export function deactivate() { }
 
 /**
- * Main workflow: Pure orchestration with no business logic
+ * Main workflow: Pure orchestration - traffic police pattern
  */
 async function executeSmartCommitAndPush(): Promise<void> {
     try {
         const workspaceRoot = getWorkspaceRoot();
 
-        // Validate workspace and git repository (throws on error)
         await validateGitWorkspace(workspaceRoot);
 
-        // Get git information
         const gitInfo = await withProgress('Analyzing git changes...', () =>
             getGitInfo(workspaceRoot!)
         );
 
-        // Generate commit message
         const generatedMessage = generateCommitMessage(gitInfo);
-
-        // Show confirmation dialog
         const finalMessage = await showCommitMessageDialog(generatedMessage);
-        if (!finalMessage) {
-            throw new Error('Commit cancelled by user');
-        }
 
-        // Execute commit and push
         await withProgress('Committing and pushing changes...', async () => {
             await gitCommit(workspaceRoot!, finalMessage);
             await gitPush(workspaceRoot!);

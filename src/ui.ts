@@ -2,11 +2,11 @@ import * as vscode from 'vscode';
 
 /**
  * Show a dialog to confirm and optionally edit the commit message
- * @returns The final commit message or undefined if cancelled
+ * Throws error if user cancels
  */
 export async function showCommitMessageDialog(
     generatedMessage: string
-): Promise<string | undefined> {
+): Promise<string> {
     const result = await vscode.window.showInputBox({
         prompt: 'Review and edit the commit message',
         value: generatedMessage,
@@ -18,6 +18,10 @@ export async function showCommitMessageDialog(
             return null;
         },
     });
+
+    if (!result) {
+        throw new Error('Commit cancelled by user');
+    }
 
     return result;
 }
