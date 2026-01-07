@@ -162,10 +162,4 @@ MIT License - see [LICENSE](LICENSE) file for details.
 - [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=SharveshC.smart-commit-push)
 - [Report Issues](https://github.com/oxel18/Autocommit/issues)
 
-## 🙏 Acknowledgments
 
-Built with ❤️ for developers who value automation and consistency.
-
----
-
-**Made by [Sharvesh C](https://github.com/oxel18)**
