@@ -1,50 +1,47 @@
 {
-  "name": "smart-commit-push",
-  "displayName": "Smart Commit & Push",
-  "description": "Automatically generate meaningful commit messages using rule-based logic and commit & push with one command",
-  "version": "1.0.0",
-  "publisher": "your-publisher-name",
-  "engines": {
-    "vscode": "^1.75.0"
-  },
-  "categories": [
-    "SCM Providers",
-    "Other"
-  ],
-  "keywords": [
-    "git",
-    "commit",
-    "push",
-    "conventional commits",
-    "automation"
-  ],
-  "activationEvents": [
-    "onCommand:smartCommitPush.commitAndPush"
-  ],
-  "main": "./out/extension.js",
-  "contributes": {
-    "commands": [
-      {
-        "command": "smartCommitPush.commitAndPush",
-        "title": "Smart Commit & Push"
-      }
-    ]
-  },
-  "scripts": {
-    "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
-    "pretest": "npm run compile",
-    "lint": "eslint src --ext ts"
-  },
-  "devDependencies": {
-    "@types/node": "^18.x",
-    "@types/vscode": "^1.75.0",
-    "typescript": "^5.0.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/yourusername/smart-commit-push"
-  },
-  "license": "MIT"
+    "name": "smart-commit-push",
+    "displayName": "Smart Commit & Push",
+    "description": "Automatically generate meaningful commit messages using rule-based logic and commit & push with one command",
+    "version": "1.0.0",
+    "publisher": "your-publisher-name",
+    "engines": {
+        "vscode": "^1.75.0"
+    },
+    "categories": [
+        "SCM Providers",
+        "Other"
+    ],
+    "keywords": [
+        "git",
+        "commit",
+        "push",
+        "conventional commits",
+        "automation"
+    ],
+    "main": "./out/extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "smartCommitPush.commitAndPush",
+                "title": "Smart Commit & Push"
+            }
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "pretest": "npm run compile",
+        "lint": "eslint src --ext ts"
+    },
+    "devDependencies": {
+        "@types/node": "^18.x",
+        "@types/vscode": "^1.75.0",
+        "typescript": "^5.0.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/yourusername/smart-commit-push"
+    },
+    "license": "MIT"
 }

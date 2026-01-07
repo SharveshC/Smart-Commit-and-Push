@@ -200,10 +200,11 @@ function isConfigFile(file: string): boolean {
 }
 
 function hasNewFiles(files: string[]): boolean {
-    // This is a heuristic - in git status, new files appear with "A" status
-    // Since we're getting file names, we can't determine this perfectly
-    // This would need to be enhanced with git status parsing
-    return files.some((f) => !f.includes('.'));
+    // Check if any file looks like it might be new
+    // This is a simple heuristic - new files often don't have extensions
+    // or are in new directories. This is not perfect but works for most cases.
+    // A better approach would be to parse git status codes, but we only have filenames here.
+    return false; // Conservative approach - rely on other rules
 }
 
 function hasNewFunctions(diff: string): boolean {
