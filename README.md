@@ -158,8 +158,8 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## 🔗 Links
 
-- [GitHub Repository](https://github.com/oxel18/Autocommit)
 - [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=SharveshC.smart-commit-push)
 - [Report Issues](https://github.com/oxel18/Autocommit/issues)
+
 
 
