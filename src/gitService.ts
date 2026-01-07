@@ -78,7 +78,7 @@ export async function gitCommit(
             cwd: workspaceRoot,
         });
     } catch (error: any) {
-        throw new Error(`Failed to commit: ${error.message}`);
+        throw new Error(translateGitError(error, 'commit'));
     }
 }
 
@@ -99,7 +99,7 @@ export async function gitPush(workspaceRoot: string): Promise<void> {
             cwd: workspaceRoot,
         });
     } catch (error: any) {
-        throw new Error(`Failed to push: ${error.message}`);
+        throw new Error(translateGitError(error, 'push'));
     }
 }
 
@@ -127,4 +127,67 @@ export async function hasChanges(workspaceRoot: string): Promise<boolean> {
     } catch {
         return false;
     }
+}
+
+/**
+ * Validate workspace and git repository
+ * Throws descriptive errors if validation fails
+ */
+export async function validateGitWorkspace(workspaceRoot: string | undefined): Promise<void> {
+    if (!workspaceRoot) {
+        throw new Error('No workspace folder is open. Please open a folder first.');
+    }
+
+    const isGit = await isGitRepository(workspaceRoot);
+    if (!isGit) {
+        throw new Error('Current workspace is not a git repository. Run "git init" to initialize.');
+    }
+
+    const hasAnyChanges = await hasChanges(workspaceRoot);
+    if (!hasAnyChanges) {
+        throw new Error('No changes to commit. Make some changes first.');
+    }
+}
+
+/**
+ * Translate git error messages to human-readable format
+ */
+function translateGitError(error: any, operation: string): string {
+    const errorMessage = error.message || error.toString();
+    const lowerError = errorMessage.toLowerCase();
+
+    // Push errors
+    if (operation === 'push') {
+        if (lowerError.includes('no upstream') || lowerError.includes('no such remote')) {
+            return 'Git push failed: No upstream branch configured. Run "git push --set-upstream origin <branch>" first.';
+        }
+        if (lowerError.includes('authentication') || lowerError.includes('permission denied')) {
+            return 'Git push failed: Authentication required. Please configure your git credentials.';
+        }
+        if (lowerError.includes('rejected') || lowerError.includes('non-fast-forward')) {
+            return 'Git push failed: Remote has changes. Pull remote changes first with "git pull".';
+        }
+        if (lowerError.includes('could not resolve host') || lowerError.includes('network')) {
+            return 'Git push failed: Network error. Check your internet connection.';
+        }
+        return `Git push failed: ${errorMessage}`;
+    }
+
+    // Commit errors
+    if (operation === 'commit') {
+        if (lowerError.includes('nothing to commit')) {
+            return 'Git commit failed: No changes to commit.';
+        }
+        if (lowerError.includes('please tell me who you are')) {
+            return 'Git commit failed: Git user not configured. Run "git config user.name" and "git config user.email".';
+        }
+        return `Git commit failed: ${errorMessage}`;
+    }
+
+    // Generic git errors
+    if (lowerError.includes('not a git repository')) {
+        return 'Not a git repository. Run "git init" to initialize.';
+    }
+
+    return `Git operation failed: ${errorMessage}`;
 }
