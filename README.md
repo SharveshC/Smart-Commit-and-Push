@@ -15,7 +15,7 @@ A Visual Studio Code extension that automatically generates meaningful commit me
 
 ## 🎯 Quick Start
 
-1. Install the extension from the VS Code Marketplace
+1. Install the extension from the VS Code Marketplace (Smart Commit & Push)
 2. Open any git repository in VS Code
 3. Make changes to your files
 4. Press `Ctrl+Shift+P` (or `Cmd+Shift+P` on Mac)
@@ -160,6 +160,7 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 - [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=SharveshC.smart-commit-push)
 - [Report Issues](https://github.com/oxel18/Autocommit/issues)
+
 
 
 
