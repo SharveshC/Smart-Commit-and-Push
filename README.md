@@ -148,9 +148,6 @@ The extension generates professional, specific commit messages:
 - ~~`feat(core): update changes`~~
 - ~~`chore(core): modify files`~~
 
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit issues or pull requests.
 
 ## 📄 License
 
@@ -159,7 +156,7 @@ MIT License - see [LICENSE](LICENSE) file for details.
 ## 🔗 Links
 
 - [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=SharveshC.smart-commit-push)
-- [Report Issues](https://github.com/oxel18/Autocommit/issues)
+- [Report Issues](https://github.com/SharveshC/Autocommit/issues)
 
 
 
