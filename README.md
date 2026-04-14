@@ -1,8 +1,18 @@
 ﻿# Smart Commit & Push
 
-> Automate your git workflow with intelligent commit messages
+ A Visual Studio Code extension that automatically generates meaningful commit messages using rule-based logic and executes commit and push operations with a single command.<br>
 
-A Visual Studio Code extension that automatically generates meaningful commit messages using rule-based logic and executes commit and push operations with a single command.
+
+## 📊 Growth & Adoption
+
+<p align="center">
+  <img src="assets/growth.png" width="800"/>
+</p>
+
+<p align="center">
+      136 total installs with steady growth over the last 30 days
+</p>
+
 
 ## ✨ Features
 
