@@ -1,8 +1,18 @@
 ﻿# Smart Commit & Push
 
-> Automate your git workflow with intelligent commit messages
+ A Visual Studio Code extension that automatically generates meaningful commit messages using rule-based logic and executes commit and push operations with a single command.<br>
 
-A Visual Studio Code extension that automatically generates meaningful commit messages using rule-based logic and executes commit and push operations with a single command.
+
+## 📊 Growth & Adoption
+
+<p align="center">
+  <img src="assets/growth.png" width="800"/>
+</p>
+
+<p align="center">
+      136 total installs with steady growth over the last 30 days
+</p>
+
 
 ## ✨ Features
 
@@ -148,9 +158,6 @@ The extension generates professional, specific commit messages:
 - ~~`feat(core): update changes`~~
 - ~~`chore(core): modify files`~~
 
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit issues or pull requests.
 
 ## 📄 License
 
@@ -159,7 +166,7 @@ MIT License - see [LICENSE](LICENSE) file for details.
 ## 🔗 Links
 
 - [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=SharveshC.smart-commit-push)
-- [Report Issues](https://github.com/oxel18/Autocommit/issues)
+- [Report Issues](https://github.com/SharveshC/Autocommit/issues)
 
 
 
