@@ -6,7 +6,7 @@
 ## 📊 Growth & Adoption
 
 <p align="center">
-  <img src="assets/growth.png" width="800"/>
+  <img src="assets/growth1.png" width="800"/>
 </p>
 
 <p align="center">
