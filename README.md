@@ -6,11 +6,11 @@
 ## 📊 Growth & Adoption
 
 <p align="center">
-<<<<<<< HEAD
+
   <img src="assets/growth2.jpeg" width="800"/>
-=======
+
   <img src="assets/growth1.png" width="800"/>
->>>>>>> 693614dd3e7298de865ed0e567128567d348e01a
+
 </p>
 
 <p align="center">
