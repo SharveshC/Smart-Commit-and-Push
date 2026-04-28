@@ -9,12 +9,11 @@
 
   <img src="assets/growth2.jpeg" width="800"/>
 
-  <img src="assets/growth1.png" width="800"/>
 
 </p>
 
 <p align="center">
-      136 total installs with steady growth over the last 30 days
+      164 total installs with steady growth over the last 90 days
 </p>
 
 
