@@ -7,13 +7,13 @@
 
 <p align="center">
 
-  <img src="assets/growth2.jpeg" width="800"/>
+  <img src="assets/growth4.jpeg" width="800"/>
 
 
 </p>
 
 <p align="center">
-      164 total installs with steady growth over the last 90 days
+      164 total installs with steady growth over the last 9![alt text](image.png)0 days
 </p>
 
 
