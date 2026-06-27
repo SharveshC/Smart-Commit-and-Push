@@ -7,7 +7,7 @@
 
 <p align="center">
 
-  <img src="assets/growth4.png" width="800"/>
+  <img src="assets/growth5.png" width="800"/>
 
 
 </p>
