@@ -13,10 +13,6 @@
 
 </p>
 
-<p align="center">
-      164 total installs with steady growth over the last 9![alt text](image.png)0 days
-</p>
-
 
 ## ✨ Features
 
