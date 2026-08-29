@@ -3,6 +3,7 @@
  A Visual Studio Code extension that automatically generates meaningful commit messages using rule-based logic and executes commit and push operations with a single command.<br>
 
 
+
 ## 📊 Growth & Adoption
 
 <p align="center">
